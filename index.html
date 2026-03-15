@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>StaffingHUD — Recruitment Operations Command Platform</title>
+<meta name="description" content="StaffingHUD replaces spreadsheets and inbox chaos with a single operational command layer built for temp staffing agencies. Placement tracking, job order queues, compliance enforcement, and AI operations intelligence. Flat pricing. Same-day deployment."/>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+/* ── RESET & BASE ─────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;}
+body{
+  background:#060a08;
+  color:#c8dfd0;
+  font-family:'Inter',sans-serif;
+  overflow-x:hidden;
+  line-height:1.6;
+}
+
+/* ── CSS VARIABLES ───────────────────────────────────────── */
+:root{
+  --bg:    #060a08;
+  --bg1:   #0c1109;
+  --bg2:   #111a0e;
+  --bg3:   #172013;
+  --g:     #00e57a;
+  --gd:    rgba(0,229,122,0.08);
+  --g1:    rgba(0,229,122,0.15);
+  --g2:    rgba(0,229,122,0.25);
+  --amber: #ffaa00;
+  --red:   #ff4757;
+  --blue:  #3a9bff;
+  --t0:    #eef4f0;
+  --t1:    #c8dfd0;
+  --t2:    #7a9b85;
+  --t3:    #3a5a42;
+  --b0:    #1a2716;
+  --b1:    #223320;
+  --b2:    #2e4428;
+  --fm:    'JetBrains Mono',monospace;
+  --fh:    'Rajdhani',sans-serif;
+  --fb:    'Inter',sans-serif;
+}
+
+/* ── GRID BACKGROUND ─────────────────────────────────────── */
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(0,229,122,0.015) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,229,122,0.015) 1px,transparent 1px);
+  background-size:56px 56px;
+}
+
+/* ── CORNER ACCENTS ──────────────────────────────────────── */
+body::after{
+  content:'';position:fixed;top:0;left:0;width:100px;height:1px;
+  background:linear-gradient(to right,rgba(0,229,122,0.5),transparent);
+  z-index:9999;pointer-events:none;
+}
+
+/* ── ANIMATIONS ──────────────────────────────────────────── */
+@keyframes scan{
+  0%{top:-2px;opacity:0;}
+  5%{opacity:.4;}
+  95%{opacity:.1;}
+  100%{top:100%;opacity:0;}
+}
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(24px);}
+  to{opacity:1;transform:translateY(0);}
+}
+@keyframes pulse{
+  0%,100%{opacity:1;}
+  50%{opacity:.35;}
+}
+@keyframes spin{
+  from{transform:rotate(0deg);}
+  to{transform:rotate(360deg);}
+}
+@keyframes blink{
+  0%,100%{opacity:1;}
+  50%{opacity:0;}
+}
+
+/* ── NAV ─────────────────────────────────────────────────── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:0 48px;height:56px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(6,10,8,0.85);
+  border-bottom:1px solid var(--b0);
+  backdrop-filter:blur(12px);
+}
+.nav-brand{
+  display:flex;align-items:center;gap:10px;text-decoration:none;
+}
+.nav-mark{flex-shrink:0;}
+.nav-wordmark{
+  font-family:var(--fh);font-size:18px;font-weight:700;
+  color:var(--g);letter-spacing:0.04em;
+}
+.nav-links{
+  display:flex;align-items:center;gap:32px;
+  list-style:none;
+}
+.nav-links a{
+  font-family:var(--fm);font-size:11px;color:var(--t2);
+  text-decoration:none;letter-spacing:0.14em;
+  transition:color 0.15s;
+}
+.nav-links a:hover{color:var(--g);}
+.nav-cta{
+  font-family:var(--fm);font-size:11px;font-weight:700;
+  color:var(--g);letter-spacing:0.16em;
+  padding:7px 18px;
+  background:var(--gd);
+  border:1px solid var(--g);
+  text-decoration:none;
+  clip-path:polygon(0 0,calc(100% - 6px) 0,100% 6px,100% 100%,0 100%);
+  transition:all 0.15s;
+}
+.nav-cta:hover{background:rgba(0,229,122,0.15);}
+
+/* ── SECTIONS ────────────────────────────────────────────── */
+section{
+  position:relative;z-index:1;
+  padding:120px 80px;
+}
+section:first-of-type{padding-top:140px;}
+
+/* ── HERO ────────────────────────────────────────────────── */
+.hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:100px 80px 80px;
+  background-image:
+    radial-gradient(ellipse 70% 60% at 100% 50%,rgba(0,229,122,0.05) 0%,transparent 65%),
+    radial-gradient(ellipse 40% 40% at 0% 100%,rgba(0,229,122,0.03) 0%,transparent 60%);
+  overflow:hidden;
+}
+
+.hero::after{
+  content:'';position:absolute;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--g),transparent);
+  animation:scan 8s ease-in-out infinite;
+  opacity:.25;pointer-events:none;
+}
+
+.hero-inner{max-width:1100px;animation:fadeUp 0.9s ease 0.1s both;}
+
+.hero-eyebrow{
+  display:flex;align-items:center;gap:10px;margin-bottom:32px;
+}
+.hero-dot{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--g);
+  animation:pulse 2s infinite;
+  box-shadow:0 0 10px var(--g);
+}
+.hero-eyebrow-text{
+  font-family:var(--fm);font-size:11px;color:var(--g);
+  letter-spacing:0.3em;
+}
+
+.hero-logo{
+  display:flex;align-items:baseline;gap:0;
+  margin-bottom:4px;line-height:1;
+}
+.hero-staffing{
+  font-family:var(--fh);font-size:clamp(60px,9vw,100px);
+  font-weight:700;color:var(--t0);letter-spacing:-0.01em;
+}
+.hero-hud{
+  font-family:var(--fh);font-size:clamp(60px,9vw,100px);
+  font-weight:700;color:var(--g);letter-spacing:-0.01em;
+}
+.hero-tag{
+  font-family:var(--fm);font-size:12px;color:var(--t3);
+  letter-spacing:0.3em;margin-bottom:40px;
+}
+.hero-body{
+  font-size:18px;line-height:1.75;color:var(--t1);
+  max-width:680px;margin-bottom:48px;
+}
+.hero-body strong{color:var(--t0);font-weight:500;}
+
+/* Stats */
+.hero-stats{
+  display:flex;gap:0;border:1px solid var(--b1);
+  margin-bottom:48px;max-width:680px;
+}
+.hero-stat{
+  flex:1;padding:20px 24px;
+  border-right:1px solid var(--b1);
+}
+.hero-stat:last-child{border-right:none;}
+.hero-stat-n{
+  font-family:var(--fh);font-size:40px;font-weight:700;
+  color:var(--g);line-height:1;margin-bottom:4px;
+}
+.hero-stat-l{
+  font-family:var(--fm);font-size:9px;color:var(--t3);
+  letter-spacing:0.2em;text-transform:uppercase;
+}
+
+/* Badge row */
+.hero-badges{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:56px;}
+.badge{
+  display:flex;align-items:center;gap:6px;
+  padding:6px 12px;
+  border:1px solid var(--b1);background:rgba(0,229,122,0.03);
+  font-family:var(--fm);font-size:9px;color:var(--t2);letter-spacing:0.12em;
+}
+.bdot{width:4px;height:4px;border-radius:50%;background:var(--g);}
+
+/* CTA row */
+.hero-actions{display:flex;gap:14px;align-items:center;}
+.btn-primary{
+  font-family:var(--fm);font-size:12px;font-weight:700;
+  color:var(--bg);background:var(--g);
+  padding:13px 32px;text-decoration:none;
+  letter-spacing:0.16em;
+  clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,0 100%);
+  transition:all 0.15s;display:inline-block;
+}
+.btn-primary:hover{background:#00c86a;}
+.btn-secondary{
+  font-family:var(--fm);font-size:12px;font-weight:700;
+  color:var(--g);
+  padding:13px 32px;text-decoration:none;
+  letter-spacing:0.16em;
+  border:1px solid var(--g);background:var(--gd);
+  clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,0 100%);
+  transition:all 0.15s;display:inline-block;
+}
+.btn-secondary:hover{background:rgba(0,229,122,0.14);}
+.hero-login{
+  font-family:var(--fm);font-size:11px;color:var(--t3);
+  letter-spacing:0.1em;text-decoration:none;
+  transition:color 0.15s;
+}
+.hero-login:hover{color:var(--t2);}
+
+/* Bottom strip */
+.hero-strip{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:16px 80px;
+  border-top:1px solid var(--b0);
+  background:rgba(0,229,122,0.01);
+  display:flex;align-items:center;gap:48px;
+}
+.strip-label{
+  font-family:var(--fm);font-size:9px;color:var(--t3);
+  letter-spacing:0.25em;white-space:nowrap;flex-shrink:0;
+}
+.strip-items{display:flex;gap:28px;flex-wrap:wrap;}
+.strip-item{
+  font-family:var(--fm);font-size:10px;color:var(--t2);
+  display:flex;align-items:center;gap:6px;
+}
+.strip-item::before{content:'▸';color:var(--g);font-size:8px;}
+
+/* ── SECTION HEADERS ─────────────────────────────────────── */
+.sh{margin-bottom:60px;}
+.sh-eye{
+  font-family:var(--fm);font-size:10px;color:var(--g);
+  letter-spacing:0.35em;margin-bottom:14px;
+  display:flex;align-items:center;gap:12px;
+}
+.sh-eye::after{
+  content:'';flex:0 0 40px;height:1px;
+  background:var(--g);opacity:0.35;
+}
+.sh-title{
+  font-family:var(--fh);font-size:clamp(36px,5vw,54px);
+  font-weight:700;color:var(--t0);line-height:1.05;
+  letter-spacing:-0.01em;
+}
+.sh-title span{color:var(--g);}
+.sh-sub{
+  font-size:16px;color:var(--t2);line-height:1.7;
+  max-width:600px;margin-top:16px;
+}
+
+/* ── PROBLEM SECTION ─────────────────────────────────────── */
+.problems{background:var(--bg);}
+.prob-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:2px;margin-bottom:48px;
+}
+.prob-card{
+  padding:32px;background:rgba(255,255,255,0.008);
+  border:1px solid var(--b0);position:relative;
+  transition:border-color 0.2s;
+}
+.prob-card:hover{border-color:var(--b1);}
+.prob-card::before{
+  content:'';position:absolute;top:0;left:0;
+  width:2px;height:100%;background:var(--red);opacity:0.5;
+}
+.prob-num{
+  font-family:var(--fm);font-size:9px;color:var(--t3);
+  letter-spacing:0.2em;margin-bottom:14px;
+}
+.prob-title{
+  font-family:var(--fh);font-size:20px;font-weight:600;
+  color:var(--t0);margin-bottom:10px;letter-spacing:0.02em;
+}
+.prob-desc{font-size:14px;line-height:1.7;color:var(--t2);}
+
+/* Comparison table */
+.ctable{border:1px solid var(--b1);}
+.crow{
+  display:grid;grid-template-columns:1.6fr 1fr 1fr 1.2fr;
+  border-bottom:1px solid var(--b0);
+}
+.crow:last-child{border-bottom:none;}
+.crow.head{background:rgba(0,229,122,0.02);border-bottom:1px solid var(--b1);}
+.cc{
+  padding:12px 16px;font-family:var(--fh);font-size:13px;
+  color:var(--t1);border-right:1px solid var(--b0);
+  display:flex;align-items:center;
+}
+.cc:last-child{border-right:none;}
+.cc.h{font-family:var(--fm);font-size:9px;color:var(--t3);letter-spacing:0.2em;}
+.cc.hl{color:var(--g);font-weight:600;}
+.cc.bad{color:var(--red);}
+.cc.ok{color:var(--amber);}
+.cc.good{color:var(--g);}
+
+/* ── MODULES ─────────────────────────────────────────────── */
+.modules{
+  background:var(--bg);
+  background-image:radial-gradient(ellipse 50% 60% at 90% 20%,rgba(0,229,122,0.025) 0%,transparent 70%);
+}
+.mod-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:2px;margin-bottom:40px;
+}
+.mod{
+  padding:28px;border:1px solid var(--b0);
+  background:rgba(255,255,255,0.006);
+  position:relative;overflow:hidden;
+  transition:border-color 0.2s,background 0.2s;
+}
+.mod:hover{border-color:var(--b1);background:rgba(0,229,122,0.02);}
+.mod-n{
+  font-family:var(--fm);font-size:28px;color:rgba(0,229,122,0.1);
+  font-weight:700;position:absolute;top:12px;right:16px;
+  letter-spacing:-0.05em;
+}
+.mod-icon{
+  width:28px;height:28px;
+  border:1px solid var(--b1);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--g);font-size:13px;margin-bottom:14px;
+}
+.mod-name{
+  font-family:var(--fh);font-size:17px;font-weight:600;
+  color:var(--t0);margin-bottom:10px;letter-spacing:0.03em;
+}
+.mod-desc{font-size:13px;line-height:1.7;color:var(--t2);margin-bottom:16px;}
+.mod-feats{list-style:none;}
+.mod-feats li{
+  font-family:var(--fm);font-size:9px;color:var(--t3);
+  letter-spacing:0.1em;padding:4px 0;
+  border-top:1px solid var(--b0);
+  display:flex;align-items:center;gap:6px;
+}
+.mod-feats li::before{content:'▸';color:var(--g);font-size:7px;}
+
+/* Platform pedigree */
+.pedigree{
+  padding:32px 36px;
+  border:1px solid var(--b2);
+  background:rgba(0,229,122,0.02);
+  display:flex;align-items:flex-start;gap:48px;
+}
+.ped-left{flex:1;}
+.ped-eye{
+  font-family:var(--fm);font-size:9px;color:var(--g);
+  letter-spacing:0.3em;margin-bottom:12px;
+}
+.ped-title{
+  font-family:var(--fh);font-size:26px;font-weight:700;
+  color:var(--t0);margin-bottom:10px;
+}
+.ped-body{font-size:14px;line-height:1.75;color:var(--t2);}
+.ped-right{flex-shrink:0;display:flex;flex-direction:column;gap:8px;}
+.ped-product{
+  padding:10px 18px;
+  border:1px solid var(--b1);background:rgba(0,229,122,0.02);
+}
+.ped-product.active{border-color:var(--g);background:rgba(0,229,122,0.06);}
+.ped-product-name{
+  font-family:var(--fh);font-size:18px;font-weight:700;
+  letter-spacing:0.03em;color:var(--t2);
+}
+.ped-product.active .ped-product-name{color:var(--g);}
+.ped-product-sub{
+  font-family:var(--fm);font-size:8px;color:var(--t3);
+  letter-spacing:0.15em;margin-top:2px;
+}
+.ped-live{display:flex;align-items:center;gap:6px;margin-top:5px;}
+.ped-dot{
+  width:5px;height:5px;border-radius:50%;
+  background:var(--g);animation:pulse 2s infinite;
+}
+.ped-live-text{
+  font-family:var(--fm);font-size:8px;color:var(--g);letter-spacing:0.15em;
+}
+
+/* ── AI SECTION ──────────────────────────────────────────── */
+.ai-section{
+  background:var(--bg);
+  background-image:
+    radial-gradient(ellipse 80% 60% at 50% 50%,rgba(0,229,122,0.028) 0%,transparent 65%);
+}
+.ai-hero-block{
+  border:1px solid var(--b2);
+  background:rgba(0,229,122,0.012);
+  padding:48px;margin-bottom:40px;
+  position:relative;overflow:hidden;
+}
+.ai-hero-block::before,.ai-hero-block::after{
+  content:'';position:absolute;width:20px;height:20px;
+  border-color:var(--g);border-style:solid;opacity:0.4;
+}
+.ai-hero-block::before{top:-1px;left:-1px;border-width:2px 0 0 2px;}
+.ai-hero-block::after{bottom:-1px;right:-1px;border-width:0 2px 2px 0;}
+.ai-scan{
+  position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--g),transparent);
+  animation:scan 5s ease-in-out infinite;opacity:0.2;
+}
+.ai-eye{
+  font-family:var(--fm);font-size:10px;color:var(--g);
+  letter-spacing:0.35em;margin-bottom:20px;
+}
+.ai-title{
+  font-family:var(--fh);font-size:clamp(32px,4vw,48px);
+  font-weight:700;color:var(--t0);line-height:1.05;margin-bottom:16px;
+}
+.ai-title span{color:var(--g);}
+.ai-body{font-size:16px;line-height:1.8;color:var(--t2);max-width:620px;}
+
+.ai-layout{display:grid;grid-template-columns:1.1fr 1fr;gap:32px;}
+.ai-chat{border:1px solid var(--b1);background:rgba(0,0,0,0.3);overflow:hidden;}
+.ai-chat-bar{
+  padding:8px 14px;border-bottom:1px solid var(--b0);
+  background:rgba(0,229,122,0.025);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.ai-chat-bar-label{font-family:var(--fm);font-size:9px;color:var(--g);letter-spacing:0.2em;}
+.ai-status{display:flex;align-items:center;gap:5px;font-family:var(--fm);font-size:8px;color:var(--t3);}
+.ai-status-dot{width:4px;height:4px;border-radius:50%;background:var(--g);animation:pulse 2s infinite;}
+.ai-msg{padding:14px 16px;border-bottom:1px solid rgba(0,229,122,0.04);font-size:13px;line-height:1.65;}
+.ai-msg.u{color:var(--t2);background:rgba(255,255,255,0.006);}
+.ai-msg.a{color:var(--t1);background:rgba(0,229,122,0.015);}
+.ai-sender{font-family:var(--fm);font-size:8px;letter-spacing:0.2em;margin-bottom:5px;}
+.ai-sender.u{color:var(--t3);}
+.ai-sender.a{color:var(--g);}
+.flag{color:var(--red);font-weight:500;}
+.warn{color:var(--amber);}
+.ok{color:var(--g);}
+
+.ai-caps-label{
+  font-family:var(--fm);font-size:9px;color:var(--t3);
+  letter-spacing:0.25em;margin-bottom:12px;
+}
+.ai-caps{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:20px;}
+.ai-cap{
+  padding:9px 12px;border:1px solid var(--b0);
+  background:rgba(0,229,122,0.012);
+  font-family:var(--fm);font-size:9px;color:var(--t2);
+  letter-spacing:0.1em;display:flex;align-items:center;gap:7px;
+}
+.ai-cap::before{content:'✓';color:var(--g);font-size:9px;}
+
+/* ── PRICING ─────────────────────────────────────────────── */
+.pricing{
+  background:var(--bg);
+  background-image:radial-gradient(ellipse 60% 50% at 50% 50%,rgba(0,229,122,0.02) 0%,transparent 70%);
+}
+.founding-banner{
+  padding:16px 28px;border:1px solid var(--g);
+  background:rgba(0,229,122,0.04);
+  display:flex;align-items:center;gap:20px;margin-bottom:40px;
+}
+.founding-dot{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--g);animation:pulse 2s infinite;flex-shrink:0;
+}
+.founding-label{
+  font-family:var(--fm);font-size:9px;color:var(--g);
+  letter-spacing:0.3em;white-space:nowrap;
+}
+.founding-text{font-size:14px;color:var(--t1);line-height:1.5;flex:1;}
+.founding-text strong{color:var(--g);font-weight:500;}
+.founding-badge{
+  flex-shrink:0;padding:8px 16px;
+  border:1px solid var(--g);background:rgba(0,229,122,0.08);
+  font-family:var(--fm);font-size:10px;color:var(--g);
+  letter-spacing:0.2em;white-space:nowrap;
+}
+
+.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-bottom:32px;}
+.pc{
+  padding:36px 28px;border:1px solid var(--b0);
+  background:rgba(255,255,255,0.006);position:relative;
+  transition:border-color 0.2s;
+}
+.pc:hover{border-color:var(--b1);}
+.pc.featured{border-color:var(--g);background:rgba(0,229,122,0.025);}
+.pc-badge{
+  position:absolute;top:-1px;left:50%;transform:translateX(-50%);
+  font-family:var(--fm);font-size:8px;color:var(--bg);
+  background:var(--g);padding:3px 12px;letter-spacing:0.16em;
+  white-space:nowrap;
+}
+.pc-tier{
+  font-family:var(--fm);font-size:10px;color:var(--t3);
+  letter-spacing:0.2em;margin-bottom:10px;
+}
+.pc-size{font-family:var(--fh);font-size:14px;color:var(--t2);margin-bottom:16px;}
+.pc-price{
+  font-family:var(--fh);font-size:42px;font-weight:700;
+  color:var(--g);line-height:1;margin-bottom:4px;
+}
+.pc-price span{font-size:16px;color:var(--t3);}
+.pc-flat{
+  font-family:var(--fm);font-size:9px;color:var(--t3);
+  letter-spacing:0.15em;margin-bottom:8px;
+}
+.pc-vs{font-size:12px;color:var(--t3);margin-bottom:20px;}
+.pc-div{height:1px;background:var(--b1);margin-bottom:20px;}
+.pc-feats{list-style:none;}
+.pc-feats li{
+  font-size:13px;color:var(--t2);padding:7px 0;
+  border-bottom:1px solid var(--b0);
+  display:flex;align-items:center;gap:8px;
+}
+.pc-feats li::before{content:'◈';color:var(--g);font-size:9px;flex-shrink:0;}
+.pc-feats li:last-child{border-bottom:none;}
+
+.price-why{display:grid;grid-template-columns:1fr 1fr;gap:2px;}
+.pw{padding:24px 28px;border:1px solid var(--b0);background:rgba(255,255,255,0.004);}
+.pw-label{
+  font-family:var(--fm);font-size:9px;color:var(--g);
+  letter-spacing:0.2em;margin-bottom:10px;
+}
+.pw-text{font-size:13px;color:var(--t2);line-height:1.75;}
+.pw-text strong{color:var(--t1);font-weight:500;}
+
+/* ── WHY / BENEFITS ──────────────────────────────────────── */
+.why{background:var(--bg);}
+.ben-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px 48px;margin-bottom:48px;}
+.ben{display:flex;gap:20px;align-items:flex-start;}
+.ben-n{
+  font-family:var(--fm);font-size:28px;color:rgba(0,229,122,0.15);
+  font-weight:700;flex-shrink:0;line-height:1;margin-top:2px;
+}
+.ben-title{
+  font-family:var(--fh);font-size:18px;font-weight:600;
+  color:var(--t0);margin-bottom:8px;letter-spacing:0.02em;
+}
+.ben-desc{font-size:14px;color:var(--t2);line-height:1.7;}
+
+/* Audience */
+.audience{
+  padding:32px 36px;border:1px solid var(--b1);
+  background:rgba(0,229,122,0.015);margin-bottom:48px;
+}
+.aud-label{
+  font-family:var(--fm);font-size:9px;color:var(--g);
+  letter-spacing:0.3em;margin-bottom:20px;
+}
+.aud-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;}
+.aud-title{
+  font-family:var(--fh);font-size:16px;font-weight:600;
+  color:var(--t0);margin-bottom:8px;
+}
+.aud-desc{font-size:13px;color:var(--t2);line-height:1.65;}
+
+/* CTA */
+.cta-block{
+  display:grid;grid-template-columns:1fr auto;gap:48px;
+  align-items:center;padding:48px;
+  border:1px solid var(--b2);background:rgba(0,229,122,0.015);
+  position:relative;overflow:hidden;
+}
+.cta-block::before,.cta-block::after{
+  content:'';position:absolute;width:16px;height:16px;
+  border-color:var(--g);border-style:solid;opacity:0.5;
+}
+.cta-block::before{top:-1px;left:-1px;border-width:2px 0 0 2px;}
+.cta-block::after{bottom:-1px;right:-1px;border-width:0 2px 2px 0;}
+.cta-title{
+  font-family:var(--fh);font-size:clamp(28px,3.5vw,42px);
+  font-weight:700;color:var(--t0);line-height:1.1;margin-bottom:14px;
+}
+.cta-title span{color:var(--g);}
+.cta-body{font-size:15px;color:var(--t2);line-height:1.75;margin-bottom:28px;max-width:520px;}
+.cta-actions{display:flex;gap:14px;align-items:center;}
+.cta-url{
+  font-family:var(--fm);font-size:10px;color:var(--t3);
+  letter-spacing:0.2em;margin-top:16px;
+}
+.cta-aside{text-align:center;}
+.cta-qr{
+  width:80px;height:80px;margin:0 auto 8px;
+  display:grid;grid-template-columns:repeat(7,10px);
+  grid-template-rows:repeat(7,10px);gap:2px;
+}
+.cta-qr-label{
+  font-family:var(--fm);font-size:8px;color:var(--t3);
+  letter-spacing:0.2em;
+}
+
+/* ── GLOBAL FOOTER ───────────────────────────────────────── */
+footer{
+  padding:20px 80px;
+  border-top:1px solid var(--b0);
+  display:flex;align-items:center;justify-content:space-between;
+  position:relative;z-index:1;
+}
+.foot-brand{
+  font-family:var(--fh);font-size:15px;font-weight:700;color:var(--t3);
+}
+.foot-brand span{color:var(--g);}
+.foot-meta{
+  font-family:var(--fm);font-size:9px;color:var(--t3);letter-spacing:0.15em;
+}
+.foot-link{
+  font-family:var(--fm);font-size:10px;color:var(--t3);
+  text-decoration:none;letter-spacing:0.12em;transition:color 0.15s;
+}
+.foot-link:hover{color:var(--g);}
+
+/* ── RESPONSIVE ──────────────────────────────────────────── */
+@media(max-width:900px){
+  nav{padding:0 24px;}
+  .nav-links{display:none;}
+  section{padding:80px 24px;}
+  .hero{padding:100px 24px 80px;}
+  .hero-strip{padding:12px 24px;gap:16px;}
+  .strip-items{display:none;}
+  .prob-grid{grid-template-columns:1fr;}
+  .mod-grid{grid-template-columns:1fr 1fr;}
+  .ai-layout{grid-template-columns:1fr;}
+  .price-grid{grid-template-columns:1fr;}
+  .pc.featured{order:-1;}
+  .ben-grid{grid-template-columns:1fr;}
+  .aud-grid{grid-template-columns:1fr;}
+  .cta-block{grid-template-columns:1fr;}
+  .cta-aside{display:none;}
+  .pedigree{flex-direction:column;gap:24px;}
+  footer{flex-direction:column;gap:12px;text-align:center;padding:20px 24px;}
+  .hero-stats{flex-direction:column;}
+  .hero-stat{border-right:none;border-bottom:1px solid var(--b1);}
+  .hero-stat:last-child{border-bottom:none;}
+}
+@media(max-width:600px){
+  .mod-grid{grid-template-columns:1fr;}
+  .price-why{grid-template-columns:1fr;}
+}
+
+/* ── SCROLL REVEAL ───────────────────────────────────────── */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity 0.6s ease,transform 0.6s ease;}
+.reveal.visible{opacity:1;transform:none;}
+</style>
+</head>
+<body>
+
+<!-- ── NAV ───────────────────────────────────────────────── -->
+<nav>
+  <a class="nav-brand" href="/">
+    <svg class="nav-mark" width="22" height="22" viewBox="0 0 100 100" fill="none">
+      <circle cx="50" cy="50" r="40" stroke="#00e57a" stroke-width="3" fill="none" opacity="0.6"/>
+      <circle cx="50" cy="50" r="24" stroke="#00e57a" stroke-width="1.5" fill="none" opacity="0.35"/>
+      <circle cx="50" cy="50" r="5" fill="#00e57a"/>
+      <line x1="50" y1="4" x2="50" y2="20" stroke="#00e57a" stroke-width="2.5"/>
+      <line x1="50" y1="80" x2="50" y2="96" stroke="#00e57a" stroke-width="2.5"/>
+      <line x1="4" y1="50" x2="20" y2="50" stroke="#00e57a" stroke-width="2.5"/>
+      <line x1="80" y1="50" x2="96" y2="50" stroke="#00e57a" stroke-width="2.5"/>
+      <rect x="44" y="44" width="12" height="12" stroke="#00e57a" stroke-width="1.5" fill="none" transform="rotate(45 50 50)" opacity="0.7"/>
+    </svg>
+    <span class="nav-wordmark">StaffingHUD</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#problem">The Problem</a></li>
+    <li><a href="#platform">Platform</a></li>
+    <li><a href="#intelligence">AI</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+  </ul>
+  <a class="nav-cta" href="https://app.staffinghud.com">◈ REQUEST DEMO</a>
+</nav>
+
+<!-- ── HERO ──────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">
+      <div class="hero-dot"></div>
+      <div class="hero-eyebrow-text">SYSTEM ONLINE · RECRUITMENT OPS · V1.0</div>
+    </div>
+
+    <div class="hero-logo">
+      <span class="hero-staffing">STAFFING</span>
+      <span class="hero-hud">HUD</span>
+    </div>
+    <div class="hero-tag">Recruitment Operations Command Platform</div>
+
+    <p class="hero-body">
+      Most staffing agencies are managing active placements in spreadsheets, tracking job orders in email threads, and hoping nothing falls through the cracks.
+      <strong>StaffingHUD replaces that chaos</strong> with a single operational command layer — built for how recruiters actually work, not how enterprise IT thinks they should.
+    </p>
+
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-n">42K+</div>
+        <div class="hero-stat-l">US Staffing Agencies</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-n">$260B</div>
+        <div class="hero-stat-l">Industry Revenue 2026</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-n">70%</div>
+        <div class="hero-stat-l">Cheaper than Bullhorn</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-n">Day 1</div>
+        <div class="hero-stat-l">Time to Deploy</div>
+      </div>
+    </div>
+
+    <div class="hero-badges">
+      <div class="badge"><div class="bdot"></div>PLACEMENT TRACKING</div>
+      <div class="badge"><div class="bdot"></div>JOB ORDER QUEUE</div>
+      <div class="badge"><div class="bdot"></div>CANDIDATE VAULT</div>
+      <div class="badge"><div class="bdot"></div>COMPLIANCE PLAYBOOKS</div>
+      <div class="badge"><div class="bdot"></div>AI RECRUITER INTEL</div>
+      <div class="badge"><div class="bdot"></div>FLAT PRICING</div>
+    </div>
+
+    <div class="hero-actions">
+      <a class="btn-primary" href="https://app.staffinghud.com">REQUEST DEMO →</a>
+      <a class="btn-secondary" href="#pricing">SEE PRICING</a>
+      <a class="hero-login" href="https://app.staffinghud.com">Existing user? Sign in →</a>
+    </div>
+  </div>
+
+  <div class="hero-strip">
+    <div class="strip-label">BUILT ON HUD PLATFORM</div>
+    <div class="strip-items">
+      <div class="strip-item">Same engine powering AdvisorHUD — live in production at a financial advisory firm</div>
+      <div class="strip-item">Enterprise-grade security: row-level RLS, private signed URLs, full audit trail</div>
+      <div class="strip-item">Deployed on Vercel + Supabase — zero infrastructure overhead</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PROBLEM ────────────────────────────────────────────── -->
+<section class="problems reveal" id="problem">
+  <div class="sh">
+    <div class="sh-eye">THE PROBLEM</div>
+    <div class="sh-title">The Tools That Exist Are<br><span>Built for Someone Else.</span></div>
+    <div class="sh-sub">Enterprise platforms like Bullhorn were designed for 50-person agencies with a dedicated IT team and a six-month implementation budget. Everyone else is duct-taping spreadsheets together and calling it a system.</div>
+  </div>
+
+  <div class="prob-grid">
+    <div class="prob-card">
+      <div class="prob-num">PROBLEM · 01</div>
+      <div class="prob-title">No Placement Visibility</div>
+      <div class="prob-desc">Every recruiter has their own tracker. Managers have no centralized view of what's active, what's overdue, or where placements are stalling. Status lives in someone's inbox or head — until it doesn't.</div>
+    </div>
+    <div class="prob-card">
+      <div class="prob-num">PROBLEM · 02</div>
+      <div class="prob-title">Job Orders Lost in Email</div>
+      <div class="prob-desc">Client job orders come in through email, text, and phone. No queue, no priority, no assignment tracking. Recruiters find out what fell through when the client calls to ask why nobody followed up.</div>
+    </div>
+    <div class="prob-card">
+      <div class="prob-num">PROBLEM · 03</div>
+      <div class="prob-title">Compliance is a Manual Liability</div>
+      <div class="prob-desc">I-9 deadlines, background check windows, drug screen timelines — tracked manually if at all. One missed step creates real legal exposure. There's no system enforcing the rules before they get broken.</div>
+    </div>
+    <div class="prob-card">
+      <div class="prob-num">PROBLEM · 04</div>
+      <div class="prob-title">Per-Seat Pricing Punishes Growth</div>
+      <div class="prob-desc">Every recruiter you hire increases your software bill. Bullhorn charges $120–$200/user/month. A 10-person team costs $14,400–$24,000 per year — before add-ons. Growth should compound revenue, not overhead.</div>
+    </div>
+  </div>
+
+  <div class="ctable">
+    <div class="crow head">
+      <div class="cc h">SOLUTION</div>
+      <div class="cc h">MONTHLY COST</div>
+      <div class="cc h">SETUP TIME</div>
+      <div class="cc h">MID-MARKET FIT</div>
+    </div>
+    <div class="crow">
+      <div class="cc">Bullhorn</div>
+      <div class="cc bad">$3,000–$4,000+</div>
+      <div class="cc bad">2–6 months</div>
+      <div class="cc bad">✗ Built for 50+ recruiters</div>
+    </div>
+    <div class="crow">
+      <div class="cc">Avionte</div>
+      <div class="cc bad">$750+/user</div>
+      <div class="cc bad">3–4 months</div>
+      <div class="cc bad">✗ Enterprise only</div>
+    </div>
+    <div class="crow">
+      <div class="cc">Spreadsheets + Email</div>
+      <div class="cc ok">$0</div>
+      <div class="cc ok">Immediate</div>
+      <div class="cc bad">✗ Breaks at scale</div>
+    </div>
+    <div class="crow">
+      <div class="cc hl">StaffingHUD</div>
+      <div class="cc good">$199–$699 flat</div>
+      <div class="cc good">Same day</div>
+      <div class="cc good">✓ Built for 1–30 recruiters</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PLATFORM MODULES ───────────────────────────────────── -->
+<section class="modules reveal" id="platform">
+  <div class="sh">
+    <div class="sh-eye">PLATFORM MODULES</div>
+    <div class="sh-title">Everything Your Agency<br><span>Needs to Operate.</span></div>
+  </div>
+
+  <div class="mod-grid">
+    <div class="mod">
+      <div class="mod-n">01</div>
+      <div class="mod-icon">⊕</div>
+      <div class="mod-name">Command Center</div>
+      <div class="mod-desc">Real-time view of every active placement, open job order, overdue task, and recruiter workload. One screen replaces the Monday morning status call.</div>
+      <ul class="mod-feats">
+        <li>Live placement pipeline by stage</li>
+        <li>Overdue task alerts with owner</li>
+        <li>Recruiter workload at a glance</li>
+        <li>Open job order count by client</li>
+      </ul>
+    </div>
+    <div class="mod">
+      <div class="mod-n">02</div>
+      <div class="mod-icon">◈</div>
+      <div class="mod-name">Placement Engine</div>
+      <div class="mod-desc">Template-driven placement workflows. Define your stages once — Sourcing, Screening, Offer, Onboarding — and every placement runs the same playbook. Nothing gets skipped.</div>
+      <ul class="mod-feats">
+        <li>Reusable placement templates</li>
+        <li>Task dependencies and SLA timers</li>
+        <li>Stage-gate progression tracking</li>
+        <li>Full placement history &amp; audit</li>
+      </ul>
+    </div>
+    <div class="mod">
+      <div class="mod-n">03</div>
+      <div class="mod-icon">≡</div>
+      <div class="mod-name">Job Order Queue</div>
+      <div class="mod-desc">Every client job order in one structured queue. Intake, assign, prioritize, and track from submission to fill. No more orders lost in email.</div>
+      <ul class="mod-feats">
+        <li>Structured intake form</li>
+        <li>Recruiter assignment &amp; routing</li>
+        <li>Priority and deadline tracking</li>
+        <li>Client-visible status updates</li>
+      </ul>
+    </div>
+    <div class="mod">
+      <div class="mod-n">04</div>
+      <div class="mod-icon">◫</div>
+      <div class="mod-name">Candidate Vault</div>
+      <div class="mod-desc">Secure, private document storage per candidate. I-9s, background checks, drug screens, certifications — organized, accessible, and protected via signed URLs.</div>
+      <ul class="mod-feats">
+        <li>Per-candidate document folders</li>
+        <li>Private signed URL file access</li>
+        <li>I-9, BG check, cert storage</li>
+        <li>Recruiter or candidate upload</li>
+      </ul>
+    </div>
+    <div class="mod">
+      <div class="mod-n">05</div>
+      <div class="mod-icon">◎</div>
+      <div class="mod-name">Compliance Playbooks</div>
+      <div class="mod-desc">Pre-built compliance task sequences by job type. The system knows when the I-9 window closes, when background checks expire — and flags it before it becomes a problem.</div>
+      <ul class="mod-feats">
+        <li>I-9 deadline enforcement</li>
+        <li>Background check window tracking</li>
+        <li>ACA hours threshold monitoring</li>
+        <li>Playbook templates by job category</li>
+      </ul>
+    </div>
+    <div class="mod">
+      <div class="mod-n">06</div>
+      <div class="mod-icon">◬</div>
+      <div class="mod-name">Recruiter Dashboard</div>
+      <div class="mod-desc">Every recruiter sees their own operational picture. Role-aware views mean managers see everything, recruiters see their work, and nobody sees noise that isn't theirs.</div>
+      <ul class="mod-feats">
+        <li>"My Active Placements" view</li>
+        <li>"My Open Job Orders" queue</li>
+        <li>Tasks due today / overdue</li>
+        <li>Manager vs. recruiter separation</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="pedigree">
+    <div class="ped-left">
+      <div class="ped-eye">HUD PLATFORM · BATTLE-TESTED INFRASTRUCTURE</div>
+      <div class="ped-title">Not Built From Scratch. Built on Proof.</div>
+      <div class="ped-body">StaffingHUD runs on the HUD operational platform — the same engine already deployed in production at a financial advisory firm, where it manages advisor onboarding workflows, client requests, document vaults, and AI-assisted operations daily. The architecture is proven. The security model is enterprise-grade. What's new is the staffing context built on top of it.</div>
+    </div>
+    <div class="ped-right">
+      <div class="ped-product active">
+        <div class="ped-product-name">StaffingHUD</div>
+        <div class="ped-product-sub">RECRUITMENT OPERATIONS</div>
+        <div class="ped-live"><div class="ped-dot"></div><div class="ped-live-text">LIVE</div></div>
+      </div>
+      <div class="ped-product">
+        <div class="ped-product-name" style="color:#3a9bff;">AdvisorHUD</div>
+        <div class="ped-product-sub">FINANCIAL ADVISORY OPS</div>
+        <div class="ped-live"><div class="ped-dot" style="background:#3a9bff;"></div><div class="ped-live-text" style="color:#3a9bff;">LIVE IN PRODUCTION</div></div>
+      </div>
+      <div class="ped-product">
+        <div class="ped-product-name" style="color:#3a5a42;">ProjectHUD</div>
+        <div class="ped-product-sub">ENGINEERING PMO</div>
+        <div class="ped-live"><div class="ped-dot" style="background:#3a5a42;animation:none;"></div><div class="ped-live-text" style="color:#3a5a42;">IN DEVELOPMENT</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── AI SECTION ─────────────────────────────────────────── -->
+<section class="ai-section reveal" id="intelligence">
+  <div class="ai-hero-block">
+    <div class="ai-scan"></div>
+    <div class="ai-eye">HUD INTELLIGENCE · EMBEDDED AI OPERATIONS LAYER</div>
+    <div class="ai-title">The Most Knowledgeable<br>Recruiter in the <span>Room.</span></div>
+    <div class="ai-body">
+      HUD Intelligence isn't a generic chatbot bolted onto a dashboard. It's an AI ops brain loaded with your agency's compliance rules, job type workflows, SLA commitments, and placement history. It has full visibility into every active placement, every open job order, and every overdue task — and it answers like the most competent person in the room.
+    </div>
+  </div>
+
+  <div class="ai-layout">
+    <div>
+      <div style="font-family:var(--fm);font-size:9px;color:var(--t3);letter-spacing:.2em;margin-bottom:10px;">LIVE INTERACTION — HUD INTELLIGENCE</div>
+      <div class="ai-chat">
+        <div class="ai-chat-bar">
+          <div class="ai-chat-bar-label">HUD INTELLIGENCE</div>
+          <div class="ai-status"><div class="ai-status-dot"></div>LIVE · CONNECTED TO PLACEMENT DATA</div>
+        </div>
+        <div class="ai-msg u">
+          <div class="ai-sender u">RECRUITER</div>
+          Which placements are at risk of missing their I-9 window this week?
+        </div>
+        <div class="ai-msg a">
+          <div class="ai-sender a">HUD INTELLIGENCE</div>
+          Three require immediate action. <span class="flag">Williams, A. at TechCore</span> — I-9 window closes today, Section 2 not completed. <span class="warn">Ortega, M. at Apex Mfg</span> — window closes Thursday, awaiting employer review. Complete Williams first — it's same-day critical.
+        </div>
+        <div class="ai-msg u">
+          <div class="ai-sender u">RECRUITER</div>
+          K. Rhodes has 9 active placements. Is that a problem?
+        </div>
+        <div class="ai-msg a">
+          <div class="ai-sender a">HUD INTELLIGENCE</div>
+          It's borderline. Three of Rhodes' placements are in Onboarding simultaneously — highest-touch stage. Two are flagged overdue on document collection. Recommend reassigning the Apex Mfg new order to Navarro, who currently has the lightest load at 4 active.
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:20px;">
+      <div>
+        <div class="ai-caps-label">INTELLIGENCE CAPABILITIES</div>
+        <div class="ai-caps">
+          <div class="ai-cap">I-9 deadline tracking</div>
+          <div class="ai-cap">Placement risk flags</div>
+          <div class="ai-cap">Recruiter load analysis</div>
+          <div class="ai-cap">Job order prioritization</div>
+          <div class="ai-cap">Onboarding sequences</div>
+          <div class="ai-cap">SLA breach prediction</div>
+          <div class="ai-cap">Compliance guidance</div>
+          <div class="ai-cap">Workload rebalancing</div>
+        </div>
+      </div>
+      <div style="padding:16px 18px;border:1px solid var(--b1);background:rgba(0,229,122,0.015);">
+        <div style="font-family:var(--fm);font-size:9px;color:var(--t3);letter-spacing:.2em;margin-bottom:10px;">UNLIKE GENERIC AI TOOLS</div>
+        <div style="font-size:13px;color:var(--t2);line-height:1.75;">HUD Intelligence has live access to your operational data — not just static documentation. It doesn't guess at your current state. It reads it. Every answer is grounded in what's actually happening in your placements right now.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PRICING ────────────────────────────────────────────── -->
+<section class="pricing reveal" id="pricing">
+  <div class="sh">
+    <div class="sh-eye">PRICING</div>
+    <div class="sh-title">Flat. Predictable.<br><span>No Per-Seat Tax.</span></div>
+  </div>
+
+  <div class="founding-banner">
+    <div class="founding-dot"></div>
+    <div class="founding-label">FOUNDING AGENCY</div>
+    <div class="founding-text">Founding agencies lock in <strong>50% off — for life</strong>. No contracts. Cancel anytime. Price never increases for founding members.</div>
+    <div class="founding-badge">LIMITED AVAILABILITY</div>
+  </div>
+
+  <div class="price-grid">
+    <div class="pc">
+      <div class="pc-tier">STARTER</div>
+      <div class="pc-size">1–5 Recruiters</div>
+      <div class="pc-price">$199<span>/mo</span></div>
+      <div class="pc-flat">FLAT · ALL USERS INCLUDED</div>
+      <div class="pc-vs">vs. $1,800–$3,000/mo on Bullhorn</div>
+      <div class="pc-div"></div>
+      <ul class="pc-feats">
+        <li>Command Center</li>
+        <li>Unlimited active placements</li>
+        <li>Job order queue</li>
+        <li>Candidate vault</li>
+        <li>Compliance playbooks</li>
+        <li>HUD Intelligence AI</li>
+        <li>Full audit trail</li>
+      </ul>
+    </div>
+    <div class="pc featured">
+      <div class="pc-badge">MOST POPULAR</div>
+      <div class="pc-tier">OPERATIONS</div>
+      <div class="pc-size">6–15 Recruiters</div>
+      <div class="pc-price">$399<span>/mo</span></div>
+      <div class="pc-flat">FLAT · ALL USERS INCLUDED</div>
+      <div class="pc-vs">vs. $4,500–$7,500/mo on Bullhorn</div>
+      <div class="pc-div"></div>
+      <ul class="pc-feats">
+        <li>Everything in Starter</li>
+        <li>Manager dashboard</li>
+        <li>Advanced compliance tracking</li>
+        <li>Recruiter performance metrics</li>
+        <li>Priority support</li>
+        <li>Custom placement templates</li>
+        <li>Firm settings &amp; branding</li>
+      </ul>
+    </div>
+    <div class="pc">
+      <div class="pc-tier">ENTERPRISE</div>
+      <div class="pc-size">16–30 Recruiters</div>
+      <div class="pc-price">$699<span>/mo</span></div>
+      <div class="pc-flat">FLAT · ALL USERS INCLUDED</div>
+      <div class="pc-vs">vs. $9,000–$15,000/mo on Bullhorn</div>
+      <div class="pc-div"></div>
+      <ul class="pc-feats">
+        <li>Everything in Operations</li>
+        <li>Multi-branch support</li>
+        <li>Advanced role permissions</li>
+        <li>API access</li>
+        <li>SSO / enterprise auth</li>
+        <li>Custom onboarding &amp; training</li>
+        <li>Dedicated account manager</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="price-why">
+    <div class="pw">
+      <div class="pw-label">WHY FLAT PRICING</div>
+      <div class="pw-text">Per-seat pricing is a <strong>tax on growth</strong>. Every recruiter you hire increases your software bill. StaffingHUD charges by agency tier — so scaling your team doesn't mean scaling your overhead.</div>
+    </div>
+    <div class="pw">
+      <div class="pw-label">WHAT'S ALWAYS INCLUDED</div>
+      <div class="pw-text">Every tier includes <strong>unlimited active placements</strong>, full audit trail, HUD Intelligence AI, candidate vault with private file storage, and compliance playbooks. No feature gating. No surprises.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── WHY ────────────────────────────────────────────────── -->
+<section class="why reveal">
+  <div class="sh">
+    <div class="sh-eye">WHY STAFFINGHUD</div>
+    <div class="sh-title">Built for Agencies That<br><span>Move Fast.</span></div>
+  </div>
+
+  <div class="ben-grid">
+    <div class="ben">
+      <div class="ben-n">01</div>
+      <div>
+        <div class="ben-title">Same-Day Deployment</div>
+        <div class="ben-desc">No 6-month implementation. No professional services fees. No IT department required. Configure your job types, invite your team, and you're operational the same day you sign up.</div>
+      </div>
+    </div>
+    <div class="ben">
+      <div class="ben-n">02</div>
+      <div>
+        <div class="ben-title">Compliance Built In, Not Bolted On</div>
+        <div class="ben-desc">I-9 deadlines, background check windows, ACA hours thresholds — the system knows the rules and enforces them automatically. Legal exposure from missed compliance steps becomes a non-issue.</div>
+      </div>
+    </div>
+    <div class="ben">
+      <div class="ben-n">03</div>
+      <div>
+        <div class="ben-title">AI That Knows Your Operation</div>
+        <div class="ben-desc">HUD Intelligence has live access to your placement data — not just documentation. It doesn't guess at your current state. It reads it. Every answer is grounded in what's actually happening right now.</div>
+      </div>
+    </div>
+    <div class="ben">
+      <div class="ben-n">04</div>
+      <div>
+        <div class="ben-title">Pricing That Doesn't Punish Growth</div>
+        <div class="ben-desc">Flat monthly tiers. No per-seat tax. Hire two more recruiters and your software cost stays the same. Growth should compound your revenue, not your SaaS overhead.</div>
+      </div>
+    </div>
+    <div class="ben">
+      <div class="ben-n">05</div>
+      <div>
+        <div class="ben-title">Enterprise Infrastructure, SMB Price</div>
+        <div class="ben-desc">Row-level database security, private signed file URLs, full audit trail, role-based access — the same security model used by enterprise software, at a fraction of the cost.</div>
+      </div>
+    </div>
+    <div class="ben">
+      <div class="ben-n">06</div>
+      <div>
+        <div class="ben-title">A Platform That Grows With You</div>
+        <div class="ben-desc">Built on the HUD platform alongside AdvisorHUD. Features developed for other verticals flow back into the core. You're buying into a platform roadmap, not point software.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="audience">
+    <div class="aud-label">BUILT FOR</div>
+    <div class="aud-grid">
+      <div>
+        <div class="aud-title">Independent Staffing Agencies</div>
+        <div class="aud-desc">1–30 recruiters running temp, contract, or temp-to-hire placements across light industrial, clerical, professional, or skilled trades.</div>
+      </div>
+      <div>
+        <div class="aud-title">Boutique Specialist Firms</div>
+        <div class="aud-desc">Niche agencies in healthcare, IT, finance, or logistics needing compliance-aware workflows without enterprise complexity or enterprise pricing.</div>
+      </div>
+      <div>
+        <div class="aud-title">Growing Regional Agencies</div>
+        <div class="aud-desc">Agencies scaling past the spreadsheet stage who need operational infrastructure before hiring another coordinator to manage the chaos manually.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-block">
+    <div>
+      <div class="cta-title">Ready to See It <span>Live?</span></div>
+      <div class="cta-body">StaffingHUD is accepting founding agency applications now. Request a demo, walk through the Command Center live, or reach out to discuss how the platform gets configured for your agency's job types, client structure, and compliance requirements. Founding agency pricing locks you in at 50% off — for life.</div>
+      <div class="cta-actions">
+        <a class="btn-primary" href="https://app.staffinghud.com">REQUEST DEMO →</a>
+        <a class="btn-secondary" href="mailto:chris@staffinghud.com">CONTACT US</a>
+      </div>
+      <div class="cta-url">staffinghud.com</div>
+    </div>
+    <div class="cta-aside">
+      <div class="cta-qr">
+        <div style="background:var(--g)"></div><div style="background:var(--g)"></div><div style="background:var(--g)"></div><div style="background:transparent"></div><div style="background:var(--g)"></div><div style="background:var(--g)"></div><div style="background:var(--g)"></div>
+        <div style="background:var(--g)"></div><div style="background:transparent"></div><div style="background:var(--g)"></div><div style="background:var(--t3)"></div><div style="background:var(--g)"></div><div style="background:transparent"></div><div style="background:var(--g)"></div>
+        <div style="background:var(--g)"></div><div style="background:transparent"></div><div style="background:var(--g)"></div><div style="background:transparent"></div><div style="background:var(--g)"></div><div style="background:transparent"></div><div style="background:var(--g)"></div>
+        <div style="background:transparent"></div><div style="background:var(--t3)"></div><div style="background:transparent"></div><div style="background:var(--g)"></div><div style="background:transparent"></div><div style="background:var(--t3)"></div><div style="background:transparent"></div>
+        <div style="background:var(--g)"></div><div style="background:transparent"></div><div style="background:var(--g)"></div><div style="background:transparent"></div><div style="background:var(--g)"></div><div style="background:transparent"></div><div style="background:var(--g)"></div>
+        <div style="background:var(--g)"></div><div style="background:transparent"></div><div style="background:var(--g)"></div><div style="background:var(--t3)"></div><div style="background:var(--g)"></div><div style="background:transparent"></div><div style="background:var(--g)"></div>
+        <div style="background:var(--g)"></div><div style="background:var(--g)"></div><div style="background:var(--g)"></div><div style="background:transparent"></div><div style="background:var(--g)"></div><div style="background:var(--g)"></div><div style="background:var(--g)"></div>
+      </div>
+      <div class="cta-qr-label">SCAN FOR DEMO</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ─────────────────────────────────────────────── -->
+<footer>
+  <div class="foot-brand">Staffing<span>HUD</span></div>
+  <div class="foot-meta">© 2026 STAFFINGHUD · RECRUITMENT OPERATIONS COMMAND PLATFORM</div>
+  <div style="display:flex;gap:24px;">
+    <a class="foot-link" href="https://app.staffinghud.com">Login</a>
+    <a class="foot-link" href="mailto:chris@staffinghud.com">Contact</a>
+  </div>
+</footer>
+
+<script>
+// Scroll reveal
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Corner accent lines
+const makeAccent = (style) => {
+  const d = document.createElement('div');
+  Object.assign(d.style, { position:'fixed', pointerEvents:'none', zIndex:'9999', ...style });
+  document.body.appendChild(d);
+};
+makeAccent({ top:'0', left:'0', width:'100px', height:'1px', background:'linear-gradient(to right, rgba(0,229,122,0.5), transparent)' });
+makeAccent({ top:'0', left:'0', width:'1px', height:'100px', background:'linear-gradient(to bottom, rgba(0,229,122,0.5), transparent)' });
+makeAccent({ bottom:'0', right:'0', width:'100px', height:'1px', background:'linear-gradient(to left, rgba(0,229,122,0.25), transparent)' });
+makeAccent({ bottom:'0', right:'0', width:'1px', height:'100px', background:'linear-gradient(to top, rgba(0,229,122,0.25), transparent)' });
+</script>
+</body>
+</html>
