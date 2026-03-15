@@ -674,82 +674,30 @@ footer{
 .reveal.visible{opacity:1;transform:none;}
 
 /* ── DEMO MODAL ──────────────────────────────────────────── */
-.modal-overlay{
-  display:none;position:fixed;inset:0;z-index:9000;
-  background:rgba(0,0,0,0.75);backdrop-filter:blur(6px);
-  align-items:center;justify-content:center;padding:20px;
-}
+.modal-overlay{display:none;position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,0.78);backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:20px;}
 .modal-overlay.active{display:flex;}
-.modal{
-  width:100%;max-width:520px;
-  background:#0c1109;
-  border:1px solid #2e4428;
-  clip-path:polygon(0 0,calc(100% - 16px) 0,100% 16px,100% 100%,0 100%);
-  position:relative;overflow:hidden;
-  animation:fadeUp 0.25s ease;
-}
-.modal-scan{
-  position:absolute;top:0;left:0;right:0;height:1px;
-  background:linear-gradient(90deg,transparent,#00e57a,transparent);
-  animation:scan 4s ease-in-out infinite;opacity:0.2;pointer-events:none;
-}
-.modal-header{
-  padding:20px 24px;border-bottom:1px solid #1a2716;
-  display:flex;align-items:center;justify-content:space-between;
-}
-.modal-title{
-  font-family:'JetBrains Mono',monospace;font-size:13px;
-  color:#00e57a;font-weight:700;letter-spacing:0.14em;
-}
-.modal-close{
-  background:none;border:none;color:#3a5a42;cursor:pointer;
-  font-size:22px;line-height:1;padding:0 4px;transition:color 0.15s;
-}
+.modal{width:100%;max-width:520px;background:#0c1109;border:1px solid #2e4428;clip-path:polygon(0 0,calc(100% - 16px) 0,100% 16px,100% 100%,0 100%);position:relative;overflow:hidden;animation:fadeUp 0.25s ease;}
+.modal-scan{position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,#00e57a,transparent);animation:scan 4s ease-in-out infinite;opacity:0.2;pointer-events:none;}
+.modal-header{padding:20px 24px;border-bottom:1px solid #1a2716;display:flex;align-items:center;justify-content:space-between;}
+.modal-title{font-family:'JetBrains Mono',monospace;font-size:13px;color:#00e57a;font-weight:700;letter-spacing:0.14em;}
+.modal-close{background:none;border:none;color:#3a5a42;cursor:pointer;font-size:22px;line-height:1;padding:0 4px;transition:color 0.15s;}
 .modal-close:hover{color:#eef4f0;}
 .modal-body{padding:28px 24px;}
-.modal-sub{
-  font-size:14px;color:#7a9b85;line-height:1.7;margin-bottom:24px;
-}
+.modal-sub{font-size:14px;color:#7a9b85;line-height:1.7;margin-bottom:24px;}
 .form-row{margin-bottom:16px;}
-.form-label{
-  display:block;font-family:'JetBrains Mono',monospace;
-  font-size:9px;color:#3a5a42;letter-spacing:0.2em;margin-bottom:6px;
-}
-.form-input{
-  width:100%;padding:10px 12px;
-  background:#111a0e;border:1px solid #223320;
-  color:#eef4f0;font-size:14px;font-family:'Inter',sans-serif;
-  outline:none;transition:border-color 0.15s;
-}
+.form-label{display:block;font-family:'JetBrains Mono',monospace;font-size:9px;color:#3a5a42;letter-spacing:0.2em;margin-bottom:6px;}
+.form-input{width:100%;padding:10px 12px;background:#111a0e;border:1px solid #223320;color:#eef4f0;font-size:14px;font-family:'Inter',sans-serif;outline:none;transition:border-color 0.15s;}
 .form-input:focus{border-color:#00e57a;}
 .form-input::placeholder{color:#3a5a42;}
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-.form-submit{
-  width:100%;padding:13px;margin-top:8px;
-  background:rgba(0,229,122,0.08);border:1px solid #00e57a;
-  color:#00e57a;font-family:'JetBrains Mono',monospace;
-  font-size:12px;font-weight:700;letter-spacing:0.16em;
-  cursor:pointer;transition:all 0.15s;
-  clip-path:polygon(0 0,calc(100% - 6px) 0,100% 6px,100% 100%,0 100%);
-}
+.form-submit{width:100%;padding:13px;margin-top:8px;background:rgba(0,229,122,0.08);border:1px solid #00e57a;color:#00e57a;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:0.16em;cursor:pointer;transition:all 0.15s;clip-path:polygon(0 0,calc(100% - 6px) 0,100% 6px,100% 100%,0 100%);}
 .form-submit:hover{background:rgba(0,229,122,0.15);}
 .form-submit:disabled{opacity:0.5;cursor:not-allowed;}
-.modal-success{
-  padding:40px 24px;text-align:center;
-}
-.modal-success-icon{
-  font-size:40px;color:#00e57a;margin-bottom:16px;
-}
-.modal-success-title{
-  font-family:'JetBrains Mono',monospace;font-size:16px;
-  color:#eef4f0;font-weight:700;letter-spacing:0.08em;margin-bottom:10px;
-}
+.modal-success{padding:40px 24px;text-align:center;}
+.modal-success-icon{font-size:40px;color:#00e57a;margin-bottom:16px;}
+.modal-success-title{font-family:'JetBrains Mono',monospace;font-size:16px;color:#eef4f0;font-weight:700;letter-spacing:0.08em;margin-bottom:10px;}
 .modal-success-body{font-size:14px;color:#7a9b85;line-height:1.7;}
-.modal-footer{
-  padding:14px 24px;border-top:1px solid #1a2716;
-  font-family:'JetBrains Mono',monospace;font-size:9px;
-  color:#3a5a42;letter-spacing:0.14em;
-}
+.modal-footer{padding:14px 24px;border-top:1px solid #1a2716;font-family:'JetBrains Mono',monospace;font-size:9px;color:#3a5a42;letter-spacing:0.14em;}
 </style>
 </head>
 <body>
@@ -775,7 +723,7 @@ footer{
     <li><a href="#intelligence">AI</a></li>
     <li><a href="#pricing">Pricing</a></li>
   </ul>
-  <a class="nav-cta" href="https://app.staffinghud.com" style="margin-right:8px;">LOGIN →</a><button class="nav-cta" onclick="openModal()" style="cursor:pointer;border:none;font-family:var(--fm);">◈ REQUEST DEMO</button>
+  <a class="nav-cta" href="https://app.staffinghud.com" style="margin-right:8px;">LOGIN →</a><button class="nav-cta" onclick="openModal()" style="cursor:pointer;border:1px solid #00e57a;font-family:var(--fm);">◈ REQUEST DEMO</button>
 </nav>
 
 <!-- ── HERO ──────────────────────────────────────────────── -->
@@ -1231,8 +1179,8 @@ footer{
       <div class="cta-title">Ready to See It <span>Live?</span></div>
       <div class="cta-body">StaffingHUD is accepting founding agency applications now. Request a demo, walk through the Command Center live, or reach out to discuss how the platform gets configured for your agency's job types, client structure, and compliance requirements. Founding agency pricing locks you in at 50% off — for life.</div>
       <div class="cta-actions">
-        <a class="btn-primary" href="https://app.staffinghud.com">REQUEST DEMO →</a>
-        <a class="btn-secondary" href="/cdn-cgi/l/email-protection#f2919a809b81b281869394949b9c959a8796dc919d9f">CONTACT US</a>
+        <button class="btn-primary" onclick="openModal()" style="cursor:pointer;border:none;font-family:var(--fm);">REQUEST DEMO →</button>
+        <a class="btn-secondary" href="mailto:cwstaples.backup@gmail.com">CONTACT US</a>
       </div>
       <div class="cta-url">staffinghud.com</div>
     </div>
@@ -1257,11 +1205,11 @@ footer{
   <div class="foot-meta">© 2026 STAFFINGHUD · RECRUITMENT OPERATIONS COMMAND PLATFORM</div>
   <div style="display:flex;gap:24px;">
     <a class="foot-link" href="https://app.staffinghud.com">Login</a>
-    <a class="foot-link" href="/cdn-cgi/l/email-protection#c2a1aab0abb182b1b6a3a4a4abaca5aab7a6eca1adaf">Contact</a>
+    <a class="foot-link" href="mailto:cwstaples.backup@gmail.com">Contact</a>
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 // Scroll reveal
 const observer = new IntersectionObserver(entries => {
   entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); } });
@@ -1276,4 +1224,111 @@ const makeAccent = (style) => {
 };
 makeAccent({ top:'0', left:'0', width:'100px', height:'1px', background:'linear-gradient(to right, rgba(0,229,122,0.5), transparent)' });
 makeAccent({ top:'0', left:'0', width:'1px', height:'100px', background:'linear-gradient(to bottom, rgba(0,229,122,0.5), transparent)' });
-makeAccent({ bottom:'0', right:'0', width:'100px', height:'1px', background:'linear-gradient(to left, rgba(0,229,
+makeAccent({ bottom:'0', right:'0', width:'100px', height:'1px', background:'linear-gradient(to left, rgba(0,229,122,0.25), transparent)' });
+makeAccent({ bottom:'0', right:'0', width:'1px', height:'100px', background:'linear-gradient(to top, rgba(0,229,122,0.25), transparent)' });
+</script>
+
+<!-- ── DEMO REQUEST MODAL ───────────────────────────────── -->
+<div class="modal-overlay" id="demoModal">
+  <div class="modal">
+    <div class="modal-scan"></div>
+    <div class="modal-header">
+      <div class="modal-title">&#9672; REQUEST A DEMO</div>
+      <button class="modal-close" onclick="closeModal()">&#215;</button>
+    </div>
+    <div id="modalForm">
+      <div class="modal-body">
+        <div class="modal-sub">Tell us about your agency and we'll reach out to schedule a walkthrough of the platform.</div>
+        <div class="form-grid">
+          <div class="form-row">
+            <label class="form-label">YOUR NAME *</label>
+            <input class="form-input" id="demoName" type="text" placeholder="First Last"/>
+          </div>
+          <div class="form-row">
+            <label class="form-label">EMAIL *</label>
+            <input class="form-input" id="demoEmail" type="email" placeholder="you@agency.com"/>
+          </div>
+        </div>
+        <div class="form-row">
+          <label class="form-label">AGENCY NAME *</label>
+          <input class="form-input" id="demoAgency" type="text" placeholder="Your staffing agency"/>
+        </div>
+        <div class="form-grid">
+          <div class="form-row">
+            <label class="form-label">TEAM SIZE</label>
+            <select class="form-input" id="demoSize">
+              <option value="">Select...</option>
+              <option>1-3 recruiters</option>
+              <option>4-8 recruiters</option>
+              <option>9-15 recruiters</option>
+              <option>16-30 recruiters</option>
+              <option>30+ recruiters</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <label class="form-label">JOB TYPES</label>
+            <select class="form-input" id="demoType">
+              <option value="">Select...</option>
+              <option>Light Industrial</option>
+              <option>Clerical / Admin</option>
+              <option>Healthcare</option>
+              <option>IT / Technical</option>
+              <option>Skilled Trades</option>
+              <option>Mixed / Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <label class="form-label">WHAT ARE YOU TRYING TO SOLVE?</label>
+          <textarea class="form-input" id="demoMessage" rows="3" placeholder="Tell us your biggest operational pain point..." style="resize:vertical;"></textarea>
+        </div>
+        <div id="formError" style="display:none;font-family:'JetBrains Mono',monospace;font-size:11px;color:#ff4757;padding:8px 10px;background:rgba(255,71,87,0.08);border:1px solid rgba(255,71,87,0.3);margin-bottom:12px;"></div>
+        <button class="form-submit" id="demoSubmit" onclick="submitDemo()">&#9672; SEND REQUEST</button>
+      </div>
+    </div>
+    <div id="modalSuccess" class="modal-success" style="display:none;">
+      <div class="modal-success-icon">&#9672;</div>
+      <div class="modal-success-title">REQUEST RECEIVED</div>
+      <div class="modal-success-body">Thanks — we'll be in touch within 24 hours to schedule your walkthrough.</div>
+    </div>
+    <div class="modal-footer">STAFFINGHUD · app.staffinghud.com</div>
+  </div>
+</div>
+
+<script>
+function openModal(){document.getElementById('demoModal').classList.add('active');document.body.style.overflow='hidden';setTimeout(function(){var el=document.getElementById('demoName');if(el)el.focus();},100);}
+function closeModal(){document.getElementById('demoModal').classList.remove('active');document.body.style.overflow='';}
+document.addEventListener('DOMContentLoaded',function(){
+  var overlay=document.getElementById('demoModal');
+  if(overlay)overlay.addEventListener('click',function(e){if(e.target===this)closeModal();});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeModal();});
+});
+function submitDemo(){
+  var name=document.getElementById('demoName').value.trim();
+  var email=document.getElementById('demoEmail').value.trim();
+  var agency=document.getElementById('demoAgency').value.trim();
+  var size=document.getElementById('demoSize').value;
+  var type=document.getElementById('demoType').value;
+  var message=document.getElementById('demoMessage').value.trim();
+  var errEl=document.getElementById('formError');
+  var btn=document.getElementById('demoSubmit');
+  if(!name||!email||!agency){errEl.textContent='NAME, EMAIL, and AGENCY are required';errEl.style.display='block';return;}
+  if(!/^[^@]+@[^@]+\.[^@]+$/.test(email)){errEl.textContent='Please enter a valid email address';errEl.style.display='block';return;}
+  errEl.style.display='none';
+  btn.disabled=true;btn.textContent='TRANSMITTING...';
+  fetch('/api/demo',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:name,email:email,agency:agency,size:size,type:type,message:message})})
+  .then(function(res){
+    if(res.ok){document.getElementById('modalForm').style.display='none';document.getElementById('modalSuccess').style.display='block';}
+    else{throw new Error('Server error');}
+  })
+  .catch(function(){
+    var subject=encodeURIComponent('Demo Request - '+agency);
+    var body=encodeURIComponent('Name: '+name+'\nEmail: '+email+'\nAgency: '+agency+'\nTeam size: '+size+'\nJob types: '+type+'\n\nMessage:\n'+message);
+    window.location.href='mailto:cwstaples.backup@gmail.com?subject='+subject+'&body='+body;
+  })
+  .finally(function(){btn.disabled=false;btn.textContent='SEND REQUEST';});
+}
+</script>
+
+</body>
+</html>
