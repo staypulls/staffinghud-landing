@@ -137,17 +137,22 @@ section:first-of-type{padding-top:140px;}
 /* ── HERO ────────────────────────────────────────────────── */
 .hero{
   min-height:100vh;
-  display:grid;
-  grid-template-columns:1fr 420px;
-  gap:60px;
-  align-content:center;
-  align-items:center;
-  padding:80px 80px 100px;
-  padding-top:calc(56px + 60px);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:80px 80px 80px;
+  padding-top:calc(56px + 48px);
   background-image:
     radial-gradient(ellipse 80% 70% at 100% 40%,rgba(0,229,122,0.06) 0%,transparent 65%),
     radial-gradient(ellipse 40% 40% at 0% 100%,rgba(0,229,122,0.03) 0%,transparent 60%);
   overflow:hidden;
+}
+.hero-columns{
+  display:grid;
+  grid-template-columns:1fr 420px;
+  gap:60px;
+  align-items:center;
+  flex:1;
 }
 
 .hero::after{
@@ -655,7 +660,8 @@ footer{
   nav{padding:0 24px;}
   .nav-links{display:none;}
   section{padding:80px 24px;}
-  .hero{padding:100px 24px 80px;grid-template-columns:1fr;gap:40px;}
+  .hero{padding:80px 24px 80px;padding-top:calc(56px + 40px);}
+  .hero-columns{grid-template-columns:1fr;gap:40px;}
   .hero-strip{padding:12px 24px;gap:16px;}
   .strip-items{display:none;}
   .prob-grid{grid-template-columns:1fr;}
@@ -737,6 +743,7 @@ footer{
 
 <!-- ── HERO ──────────────────────────────────────────────── -->
 <section class="hero">
+  <div class="hero-columns">
   <div class="hero-inner">
     <div class="hero-eyebrow">
       <div class="hero-dot"></div>
@@ -793,7 +800,7 @@ footer{
   <div style="animation:fadeUp 1s ease 0.3s both;display:flex;flex-direction:column;gap:8px;">
     <!-- Live status header -->
     <div style="padding:10px 16px;background:rgba(0,229,122,0.04);border:1px solid #223320;display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
-      <span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#00e57a;letter-spacing:0.25em;">COMMAND CENTER</span>
+      <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#00e57a;letter-spacing:0.2em;font-weight:700;">COMMAND CENTER</span>
       <div style="display:flex;align-items:center;gap:5px;">
         <div style="width:5px;height:5px;border-radius:50%;background:#00e57a;animation:pulse 2s infinite;"></div>
         <span style="font-family:'JetBrains Mono',monospace;font-size:8px;color:#3a5a42;letter-spacing:0.15em;">LIVE</span>
@@ -803,73 +810,75 @@ footer{
     <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;margin-bottom:4px;">
       <div style="padding:14px 12px;background:#0c1109;border:1px solid #1a2716;text-align:center;">
         <div style="font-family:'Rajdhani',sans-serif;font-size:28px;font-weight:700;color:#00e57a;line-height:1;">14</div>
-        <div style="font-family:'JetBrains Mono',monospace;font-size:7px;color:#3a5a42;letter-spacing:0.15em;margin-top:3px;">ACTIVE</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#3a5a42;letter-spacing:0.15em;margin-top:3px;">ACTIVE</div>
       </div>
       <div style="padding:14px 12px;background:#0c1109;border:1px solid #1a2716;text-align:center;">
         <div style="font-family:'Rajdhani',sans-serif;font-size:28px;font-weight:700;color:#ffaa00;line-height:1;">3</div>
-        <div style="font-family:'JetBrains Mono',monospace;font-size:7px;color:#3a5a42;letter-spacing:0.15em;margin-top:3px;">OVERDUE</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#3a5a42;letter-spacing:0.15em;margin-top:3px;">OVERDUE</div>
       </div>
       <div style="padding:14px 12px;background:#0c1109;border:1px solid #1a2716;text-align:center;">
         <div style="font-family:'Rajdhani',sans-serif;font-size:28px;font-weight:700;color:#3a9bff;line-height:1;">7</div>
-        <div style="font-family:'JetBrains Mono',monospace;font-size:7px;color:#3a5a42;letter-spacing:0.15em;margin-top:3px;">OPEN ORDERS</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#3a5a42;letter-spacing:0.15em;margin-top:3px;">OPEN ORDERS</div>
       </div>
     </div>
     <!-- Placement rows -->
     <div style="background:#0c1109;border:1px solid #1a2716;overflow:hidden;">
       <div style="padding:6px 12px;background:#111a0e;border-bottom:1px solid #1a2716;display:grid;grid-template-columns:1fr 80px 60px;gap:8px;">
-        <span style="font-family:'JetBrains Mono',monospace;font-size:7px;color:#3a5a42;letter-spacing:0.15em;">CANDIDATE</span>
-        <span style="font-family:'JetBrains Mono',monospace;font-size:7px;color:#3a5a42;letter-spacing:0.15em;">STAGE</span>
-        <span style="font-family:'JetBrains Mono',monospace;font-size:7px;color:#3a5a42;letter-spacing:0.15em;">STATUS</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#3a5a42;letter-spacing:0.15em;">CANDIDATE</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#3a5a42;letter-spacing:0.15em;">STAGE</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#3a5a42;letter-spacing:0.15em;">STATUS</span>
       </div>
       <div style="padding:9px 12px;border-bottom:1px solid #111a0e;display:grid;grid-template-columns:1fr 80px 60px;gap:8px;align-items:center;">
         <div>
-          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#eef4f0;font-weight:600;">K. Williams</div>
-          <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:#3a5a42;">Apex Mfg</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#eef4f0;font-weight:700;">K. Williams</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#7a9b85;">Apex Mfg</div>
         </div>
-        <span style="font-family:'JetBrains Mono',monospace;font-size:8px;color:#00c8b4;">ONBOARDING</span>
-        <span style="font-family:'JetBrains Mono',monospace;font-size:8px;color:#00e57a;font-weight:700;">ON TRACK</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#00c8b4;font-weight:700;">ONBOARDING</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#00e57a;font-weight:700;">ON TRACK</span>
       </div>
       <div style="padding:9px 12px;border-bottom:1px solid #111a0e;display:grid;grid-template-columns:1fr 80px 60px;gap:8px;align-items:center;background:rgba(255,71,87,0.04);">
         <div>
-          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#eef4f0;font-weight:600;">M. Ortega</div>
-          <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:#3a5a42;">TechCore Inc</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#eef4f0;font-weight:700;">M. Ortega</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#7a9b85;">TechCore Inc</div>
         </div>
-        <span style="font-family:'JetBrains Mono',monospace;font-size:8px;color:#3a9bff;">SCREENING</span>
-        <span style="font-family:'JetBrains Mono',monospace;font-size:8px;color:#ff4757;font-weight:700;">⚑ I-9 DUE</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#3a9bff;font-weight:700;">SCREENING</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#ff4757;font-weight:700;">⚑ I-9 DUE</span>
       </div>
       <div style="padding:9px 12px;border-bottom:1px solid #111a0e;display:grid;grid-template-columns:1fr 80px 60px;gap:8px;align-items:center;">
         <div>
-          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#eef4f0;font-weight:600;">T. Jackson</div>
-          <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:#3a5a42;">Greenleaf Co</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#eef4f0;font-weight:700;">T. Jackson</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#7a9b85;">Greenleaf Co</div>
         </div>
-        <span style="font-family:'JetBrains Mono',monospace;font-size:8px;color:#ffaa00;">OFFER</span>
-        <span style="font-family:'JetBrains Mono',monospace;font-size:8px;color:#ffaa00;font-weight:700;">PENDING</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#ffaa00;font-weight:700;">OFFER</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#ffaa00;font-weight:700;">PENDING</span>
       </div>
       <div style="padding:9px 12px;display:grid;grid-template-columns:1fr 80px 60px;gap:8px;align-items:center;">
         <div>
-          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#eef4f0;font-weight:600;">S. Patel</div>
-          <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:#3a5a42;">Summit Log.</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#eef4f0;font-weight:700;">S. Patel</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#7a9b85;">Summit Log.</div>
         </div>
-        <span style="font-family:'JetBrains Mono',monospace;font-size:8px;color:#7a9b85;">SOURCING</span>
-        <span style="font-family:'JetBrains Mono',monospace;font-size:8px;color:#00e57a;font-weight:700;">ON TRACK</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#7a9b85;font-weight:700;">SOURCING</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#00e57a;font-weight:700;">ON TRACK</span>
       </div>
     </div>
     <!-- Compliance alert -->
     <div style="padding:10px 14px;background:rgba(255,71,87,0.05);border:1px solid rgba(255,71,87,0.25);display:flex;align-items:center;gap:10px;">
       <span style="color:#ff4757;font-size:12px;flex-shrink:0;">⚑</span>
       <div>
-        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#ff4757;font-weight:700;letter-spacing:0.1em;">COMPLIANCE ALERT</div>
-        <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:#7a9b85;margin-top:2px;">Ortega I-9 Section 2 — window closes today</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#ff4757;font-weight:700;letter-spacing:0.1em;">COMPLIANCE ALERT</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#c8dfd0;margin-top:3px;">Ortega I-9 Section 2 — window closes today</div>
       </div>
     </div>
     <!-- AI query -->
     <div style="padding:10px 14px;background:rgba(0,229,122,0.03);border:1px solid #223320;">
-      <div style="font-family:'JetBrains Mono',monospace;font-size:7px;color:#3a5a42;letter-spacing:0.2em;margin-bottom:6px;">HUD INTELLIGENCE</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#00e57a;letter-spacing:0.2em;margin-bottom:6px;">HUD INTELLIGENCE</div>
       <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#7a9b85;line-height:1.6;">Ortega's I-9 is critical — same-day action required. Recommend reassigning the Summit job order to Navarro, who has the lightest load at 4 active placements.</div>
     </div>
   </div>
 
-  <div class="hero-strip">
+  </div>
+
+    <div class="hero-strip">
     <div class="strip-label">BUILT ON HUD PLATFORM</div>
     <div class="strip-items">
       <div class="strip-item">Same engine powering AdvisorHUD — live in production at a financial advisory firm</div>
