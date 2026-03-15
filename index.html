@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>StaffingHUD — Recruitment Operations Command Platform</title>
-<meta name="description" content="StaffingHUD replaces spreadsheets and inbox chaos with a single operational command layer built for temp staffing agencies. Placement tracking, job order queues, compliance enforcement, and AI operations intelligence. Flat pricing. Same-day deployment."/>
+<meta name="description" content="StaffingHUD replaces spreadsheets and email chaos with a single ops command layer for temp staffing agencies. Auto-compliance on placement launch, fill rate analytics, AI recruiter intelligence. Flat pricing. Same-day deployment."/>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
 <meta name="robots" content="index, follow"/>
 <link rel="canonical" href="https://www.staffinghud.com"/>
@@ -845,6 +845,7 @@ footer{
       <div class="badge"><div class="bdot"></div>CANDIDATE VAULT</div>
       <div class="badge"><div class="bdot"></div>COMPLIANCE PLAYBOOKS</div>
       <div class="badge"><div class="bdot"></div>AI RECRUITER INTEL</div>
+      <div class="badge"><div class="bdot"></div>FILL RATE ANALYTICS</div>
       <div class="badge"><div class="bdot"></div>FLAT PRICING</div>
     </div>
 
@@ -1036,11 +1037,11 @@ footer{
       <div class="mod-n">02</div>
       <div class="mod-icon">◈</div>
       <div class="mod-name">Placement Engine</div>
-      <div class="mod-desc">Template-driven placement workflows. Define your stages once — Sourcing, Screening, Offer, Onboarding — and every placement runs the same playbook. Nothing gets skipped.</div>
+      <div class="mod-desc">Template-driven placement workflows. Fill a job order in one click — the placement launches pre-populated with client, pay rate, and job type. Compliance items generate automatically at launch.</div>
       <ul class="mod-feats">
-        <li>Reusable placement templates</li>
+        <li>One-click job order → placement conversion</li>
+        <li>Auto-creates I-9, BGC &amp; drug screen on launch</li>
         <li>Task dependencies and SLA timers</li>
-        <li>Stage-gate progression tracking</li>
         <li>Full placement history &amp; audit</li>
       </ul>
     </div>
@@ -1048,12 +1049,12 @@ footer{
       <div class="mod-n">03</div>
       <div class="mod-icon">≡</div>
       <div class="mod-name">Job Order Queue</div>
-      <div class="mod-desc">Every client job order in one structured queue. Intake, assign, prioritize, and track from submission to fill. No more orders lost in email.</div>
+      <div class="mod-desc">Every client job order in one structured queue. Track from intake to fill — and measure fill rate, average days to fill, and revenue by recruiter in the built-in analytics screen.</div>
       <ul class="mod-feats">
-        <li>Structured intake form</li>
+        <li>Structured intake with one-click fill</li>
         <li>Recruiter assignment &amp; routing</li>
+        <li>Fill rate &amp; days-to-fill analytics</li>
         <li>Priority and deadline tracking</li>
-        <li>Client-visible status updates</li>
       </ul>
     </div>
     <div class="mod">
@@ -1072,12 +1073,12 @@ footer{
       <div class="mod-n">05</div>
       <div class="mod-icon">◎</div>
       <div class="mod-name">Compliance Playbooks</div>
-      <div class="mod-desc">Pre-built compliance task sequences by job type. The system knows when the I-9 window closes, when background checks expire — and flags it before it becomes a problem.</div>
+      <div class="mod-desc">Compliance items auto-generate the moment a placement launches — I-9 by day 3, background check by day 1, drug screen by day 1. The system enforces the rules before they get broken.</div>
       <ul class="mod-feats">
+        <li>Auto-created on placement launch</li>
         <li>I-9 deadline enforcement</li>
         <li>Background check window tracking</li>
         <li>ACA hours threshold monitoring</li>
-        <li>Playbook templates by job category</li>
       </ul>
     </div>
     <div class="mod">
@@ -1127,7 +1128,7 @@ footer{
     <div class="ai-eye">HUD INTELLIGENCE · EMBEDDED AI OPERATIONS LAYER</div>
     <div class="ai-title">The Most Knowledgeable<br>Recruiter in the <span>Room.</span></div>
     <div class="ai-body">
-      HUD Intelligence isn't a generic chatbot bolted onto a dashboard. It's an AI ops brain loaded with your agency's compliance rules, job type workflows, SLA commitments, and placement history. It has full visibility into every active placement, every open job order, and every overdue task — and it answers like the most competent person in the room.
+      HUD Intelligence isn't a generic chatbot bolted onto a dashboard. It knows your I-9 windows close on day 3. It knows which recruiter is overloaded. It knows which placement is 2 days from a compliance breach. Ask it anything about your current ops and it answers with the actual data — not a guess.
     </div>
   </div>
 
@@ -1141,19 +1142,19 @@ footer{
         </div>
         <div class="ai-msg u">
           <div class="ai-sender u">RECRUITER</div>
-          Which placements are at risk of missing their I-9 window this week?
+          What's our fill rate this month and who's dragging it down?
         </div>
         <div class="ai-msg a">
           <div class="ai-sender a">HUD INTELLIGENCE</div>
-          Three require immediate action. <span class="flag">Williams, A. at TechCore</span> — I-9 window closes today, Section 2 not completed. <span class="warn">Ortega, M. at Apex Mfg</span> — window closes Thursday, awaiting employer review. Complete Williams first — it's same-day critical.
+          Agency fill rate is <span class="ok">61%</span> this month — down from 74% last month. <span class="flag">Rhodes</span> is at 43% on 7 orders, with 3 stalled in Interviewing for 8+ days. <span class="warn">Navarro</span> is at 100% on 4 orders. Recommend reviewing Rhodes' stalled orders — two have passed the client deadline.
         </div>
         <div class="ai-msg u">
           <div class="ai-sender u">RECRUITER</div>
-          K. Rhodes has 9 active placements. Is that a problem?
+          Which compliance items are critical this week?
         </div>
         <div class="ai-msg a">
           <div class="ai-sender a">HUD INTELLIGENCE</div>
-          It's borderline. Three of Rhodes' placements are in Onboarding simultaneously — highest-touch stage. Two are flagged overdue on document collection. Recommend reassigning the Apex Mfg new order to Navarro, who currently has the lightest load at 4 active.
+          Two are same-day critical. <span class="flag">Chen, W. at TechCore</span> — I-9 Section 2 due today, not completed. <span class="warn">Ortega, M. at Apex</span> — background check window closes tomorrow. Both were auto-created at placement launch. Chen is the priority — missed I-9 windows carry legal exposure.
         </div>
       </div>
     </div>
