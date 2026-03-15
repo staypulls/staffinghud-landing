@@ -82,7 +82,7 @@ export default async function handler(req, res) {
       },
       body: JSON.stringify({
         from: "StaffingHUD <users@staffinghud.com>",
-        to: ["chris@staffinghud.com"],
+        to: ["cwstaples.backup@gmail.com"],
         reply_to: email,
         subject: `Demo Request — ${agency} (${name})`,
         html,
