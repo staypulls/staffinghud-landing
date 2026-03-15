@@ -138,13 +138,14 @@ section{
 .hero{
   min-height:100vh;
   position:relative;
-  padding:0 80px;
+  padding:56px 80px 80px;
   background-image:
     radial-gradient(ellipse 80% 70% at 100% 40%,rgba(0,229,122,0.06) 0%,transparent 65%),
     radial-gradient(ellipse 40% 40% at 0% 100%,rgba(0,229,122,0.03) 0%,transparent 60%);
   overflow:hidden;
   display:flex;
-  align-items:center;
+  flex-direction:column;
+  justify-content:center;
 }
 .hero-columns{
   display:grid;
@@ -152,7 +153,6 @@ section{
   gap:60px;
   align-items:center;
   width:100%;
-  padding-top:56px;
 }
 
 .hero::after{
