@@ -140,8 +140,10 @@ section:first-of-type{padding-top:140px;}
   display:grid;
   grid-template-columns:1fr 420px;
   gap:60px;
+  align-content:center;
   align-items:center;
-  padding:100px 80px 120px;
+  padding:80px 80px 100px;
+  padding-top:calc(56px + 60px);
   background-image:
     radial-gradient(ellipse 80% 70% at 100% 40%,rgba(0,229,122,0.06) 0%,transparent 65%),
     radial-gradient(ellipse 40% 40% at 0% 100%,rgba(0,229,122,0.03) 0%,transparent 60%);
@@ -158,7 +160,7 @@ section:first-of-type{padding-top:140px;}
 .hero-inner{animation:fadeUp 0.9s ease 0.1s both;}
 
 .hero-eyebrow{
-  display:flex;align-items:center;gap:10px;margin-bottom:32px;
+  display:flex;align-items:center;gap:10px;margin-bottom:20px;
 }
 .hero-dot{
   width:8px;height:8px;border-radius:50%;
@@ -185,27 +187,27 @@ section:first-of-type{padding-top:140px;}
 }
 .hero-tag{
   font-family:var(--fm);font-size:11px;color:var(--t2);
-  letter-spacing:0.28em;margin-bottom:36px;
+  letter-spacing:0.28em;margin-bottom:24px;
 }
 .hero-body{
   font-size:19px;line-height:1.8;color:var(--t1);
-  max-width:640px;margin-bottom:48px;
+  max-width:640px;margin-bottom:32px;
 }
 .hero-body strong{color:var(--t0);font-weight:500;}
 
 /* Stats */
 .hero-stats{
   display:flex;gap:0;border:1px solid var(--b1);
-  margin-bottom:48px;max-width:680px;
+  margin-bottom:32px;max-width:680px;
 }
 .hero-stat{
-  flex:1;padding:20px 24px;
+  flex:1;padding:16px 20px;
   border-right:1px solid var(--b1);
 }
 .hero-stat:last-child{border-right:none;}
 .hero-stat-n{
-  font-family:var(--fh);font-size:40px;font-weight:700;
-  color:var(--g);line-height:1;margin-bottom:4px;
+  font-family:var(--fh);font-size:36px;font-weight:700;
+  color:var(--g);line-height:1;margin-bottom:3px;
 }
 .hero-stat-l{
   font-family:var(--fm);font-size:9px;color:var(--t3);
@@ -213,7 +215,7 @@ section:first-of-type{padding-top:140px;}
 }
 
 /* Badge row */
-.hero-badges{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:56px;}
+.hero-badges{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:36px;}
 .badge{
   display:flex;align-items:center;gap:6px;
   padding:6px 12px;
