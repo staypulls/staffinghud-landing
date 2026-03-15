@@ -132,7 +132,7 @@ section{
   position:relative;z-index:1;
   padding:120px 80px;
 }
-section:first-of-type{padding-top:140px;}
+/* hero handles its own top padding */
 
 /* ── HERO ────────────────────────────────────────────────── */
 .hero{
@@ -140,8 +140,8 @@ section:first-of-type{padding-top:140px;}
   display:flex;
   flex-direction:column;
   justify-content:center;
-  padding:80px 80px 80px;
-  padding-top:calc(56px + 48px);
+  padding:0 80px 60px;
+  padding-top:calc(56px + 40px);
   background-image:
     radial-gradient(ellipse 80% 70% at 100% 40%,rgba(0,229,122,0.06) 0%,transparent 65%),
     radial-gradient(ellipse 40% 40% at 0% 100%,rgba(0,229,122,0.03) 0%,transparent 60%);
