@@ -6,6 +6,30 @@
 <title>StaffingHUD — Recruitment Operations Command Platform</title>
 <meta name="description" content="StaffingHUD replaces spreadsheets and inbox chaos with a single operational command layer built for temp staffing agencies. Placement tracking, job order queues, compliance enforcement, and AI operations intelligence. Flat pricing. Same-day deployment."/>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+<meta name="robots" content="index, follow"/>
+<link rel="canonical" href="https://www.staffinghud.com"/>
+
+<!-- Open Graph -->
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://www.staffinghud.com"/>
+<meta property="og:site_name" content="StaffingHUD"/>
+<meta property="og:title" content="StaffingHUD — Recruitment Operations Command Platform"/>
+<meta property="og:description" content="StaffingHUD replaces spreadsheets and email chaos with a single operational command layer for temp staffing agencies. Placement tracking, compliance enforcement, AI operations intelligence. Flat pricing. Same-day deployment."/>
+<meta property="og:image" content="https://www.staffinghud.com/og-image.png"/>
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="StaffingHUD — Recruitment Operations Command Platform"/>
+<meta name="twitter:description" content="Replace spreadsheets and email chaos with a single ops command layer. Built for temp staffing agencies 1–30 recruiters. Flat pricing. Same-day deployment."/>
+<meta name="twitter:image" content="https://www.staffinghud.com/og-image.png"/>
+
+<!-- Additional SEO -->
+<meta name="author" content="StaffingHUD"/>
+<meta name="keywords" content="staffing agency software, temp staffing platform, recruitment operations, placement tracking, staffing compliance, job order management, ATS alternative, Bullhorn alternative"/>
+<meta name="theme-color" content="#00e57a"/>
+
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
@@ -136,27 +160,19 @@ section{
 
 /* ── HERO ────────────────────────────────────────────────── */
 .hero{
-  height:100vh;
   position:relative;
-  display:flex;
-  flex-direction:column;
-  padding:0 80px;
-  background-image:
-    radial-gradient(ellipse 80% 70% at 100% 40%,rgba(0,229,122,0.06) 0%,transparent 65%),
-    radial-gradient(ellipse 40% 40% at 0% 100%,rgba(0,229,122,0.03) 0%,transparent 60%);
-  overflow:hidden;
-}
-.hero-columns{
   display:grid;
   grid-template-columns:1fr 420px;
   gap:60px;
-  align-items:center;
-  width:100%;
-  margin-top:auto;
-  margin-bottom:auto;
-  padding-top:56px;
+  align-items:start;
+  padding:calc(56px + 48px) 80px 100px;
+  overflow:hidden;
+  background-image:
+    radial-gradient(ellipse 80% 70% at 100% 40%,rgba(0,229,122,0.06) 0%,transparent 65%),
+    radial-gradient(ellipse 40% 40% at 0% 100%,rgba(0,229,122,0.03) 0%,transparent 60%);
 }
 
+.hero-columns{display:contents;}
 .hero::after{
   content:'';position:absolute;left:0;right:0;height:2px;
   background:linear-gradient(90deg,transparent,var(--g),transparent);
@@ -183,6 +199,7 @@ section{
 .hero-logo{
   display:flex;align-items:baseline;gap:0;
   margin-bottom:4px;line-height:1;
+  font-size:inherit;
 }
 .hero-staffing{
   font-family:var(--fh);font-size:clamp(60px,9vw,100px);
@@ -290,6 +307,7 @@ section{
   content:'';flex:0 0 40px;height:1px;
   background:var(--g);opacity:0.35;
 }
+h1.hero-logo, h2.sh-title, h2.cta-title{ font-weight:inherit; }
 .sh-title{
   font-family:var(--fh);font-size:clamp(40px,5.5vw,60px);
   font-weight:700;color:var(--t0);line-height:1.05;
@@ -662,8 +680,7 @@ footer{
   nav{padding:0 24px;}
   .nav-links{display:none;}
   section{padding:80px 24px;}
-  .hero{padding:0 24px;}
-  .hero-columns{grid-template-columns:1fr;gap:40px;padding-top:80px;padding-bottom:80px;}
+  .hero{grid-template-columns:1fr;padding:calc(56px + 32px) 24px 80px;gap:32px;}
   .hero-strip{padding:12px 24px;gap:16px;}
   .strip-items{display:none;}
   .prob-grid{grid-template-columns:1fr;}
@@ -716,13 +733,53 @@ footer{
 .modal-success-body{font-size:14px;color:#7a9b85;line-height:1.7;}
 .modal-footer{padding:14px 24px;border-top:1px solid #1a2716;font-family:'JetBrains Mono',monospace;font-size:9px;color:#3a5a42;letter-spacing:0.14em;}
 </style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "StaffingHUD",
+  "description": "Recruitment Operations Command Platform for temp staffing agencies. Placement tracking, job order queue, compliance playbooks, candidate vault, and AI intelligence.",
+  "url": "https://www.staffinghud.com",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Web",
+  "offers": [
+    {
+      "@type": "Offer",
+      "name": "Starter",
+      "price": "199",
+      "priceCurrency": "USD",
+      "priceSpecification": { "@type": "UnitPriceSpecification", "billingDuration": "P1M" }
+    },
+    {
+      "@type": "Offer",
+      "name": "Operations",
+      "price": "399",
+      "priceCurrency": "USD",
+      "priceSpecification": { "@type": "UnitPriceSpecification", "billingDuration": "P1M" }
+    },
+    {
+      "@type": "Offer",
+      "name": "Enterprise",
+      "price": "699",
+      "priceCurrency": "USD",
+      "priceSpecification": { "@type": "UnitPriceSpecification", "billingDuration": "P1M" }
+    }
+  ],
+  "publisher": {
+    "@type": "Organization",
+    "name": "StaffingHUD",
+    "url": "https://www.staffinghud.com"
+  }
+}
+</script>
 </head>
 <body>
 
 <!-- ── NAV ───────────────────────────────────────────────── -->
 <nav>
   <a class="nav-brand" href="/">
-    <svg class="nav-mark" width="22" height="22" viewBox="0 0 100 100" fill="none">
+    <svg class="nav-mark" width="22" height="22" viewBox="0 0 100 100" fill="none" role="img" aria-label="StaffingHUD logo">
       <circle cx="50" cy="50" r="40" stroke="#00e57a" stroke-width="3" fill="none" opacity="0.6"/>
       <circle cx="50" cy="50" r="24" stroke="#00e57a" stroke-width="1.5" fill="none" opacity="0.35"/>
       <circle cx="50" cy="50" r="5" fill="#00e57a"/>
@@ -744,7 +801,7 @@ footer{
 </nav>
 
 <!-- ── HERO ──────────────────────────────────────────────── -->
-<section class="hero">
+<div class="hero">
   <div class="hero-columns">
   <div class="hero-inner">
     <div class="hero-eyebrow">
@@ -752,10 +809,10 @@ footer{
       <div class="hero-eyebrow-text">SYSTEM ONLINE · RECRUITMENT OPS · V1.0</div>
     </div>
 
-    <div class="hero-logo">
+    <h1 class="hero-logo">
       <span class="hero-staffing">STAFFING</span>
       <span class="hero-hud">HUD</span>
-    </div>
+    </h1>
     <div class="hero-tag">Recruitment Operations Command Platform</div>
 
     <p class="hero-body">
@@ -888,13 +945,13 @@ footer{
       <div class="strip-item">Deployed on Vercel + Supabase — zero infrastructure overhead</div>
     </div>
   </div>
-</section>
+</div>
 
 <!-- ── PROBLEM ────────────────────────────────────────────── -->
 <section class="problems reveal" id="problem">
   <div class="sh">
     <div class="sh-eye">THE PROBLEM</div>
-    <div class="sh-title">The Tools That Exist Are<br><span>Built for Someone Else.</span></div>
+    <h2 class="sh-title">The Tools That Exist Are<br><span>Built for Someone Else.</span></h2>
     <div class="sh-sub">Enterprise platforms like Bullhorn were designed for 50-person agencies with a dedicated IT team and a six-month implementation budget. Everyone else is duct-taping spreadsheets together and calling it a system.</div>
   </div>
 
@@ -959,7 +1016,7 @@ footer{
 <section class="modules reveal" id="platform">
   <div class="sh">
     <div class="sh-eye">PLATFORM MODULES</div>
-    <div class="sh-title">Everything Your Agency<br><span>Needs to Operate.</span></div>
+    <h2 class="sh-title">Everything Your Agency<br><span>Needs to Operate.</span></h2>
   </div>
 
   <div class="mod-grid">
@@ -1127,7 +1184,7 @@ footer{
 <section class="pricing reveal" id="pricing">
   <div class="sh">
     <div class="sh-eye">PRICING</div>
-    <div class="sh-title">Flat. Predictable.<br><span>No Per-Seat Tax.</span></div>
+    <h2 class="sh-title">Flat. Predictable.<br><span>No Per-Seat Tax.</span></h2>
   </div>
 
   <div class="founding-banner">
@@ -1208,7 +1265,7 @@ footer{
 <section class="why reveal">
   <div class="sh">
     <div class="sh-eye">WHY STAFFINGHUD</div>
-    <div class="sh-title">Built for Agencies That<br><span>Move Fast.</span></div>
+    <h2 class="sh-title">Built for Agencies That<br><span>Move Fast.</span></h2>
   </div>
 
   <div class="ben-grid">
@@ -1276,7 +1333,7 @@ footer{
 
   <div class="cta-block">
     <div>
-      <div class="cta-title">Ready to See It <span>Live?</span></div>
+      <h2 class="cta-title">Ready to See It <span>Live?</span></h2>
       <div class="cta-body">StaffingHUD is accepting founding agency applications now. Request a demo, walk through the Command Center live, or reach out to discuss how the platform gets configured for your agency's job types, client structure, and compliance requirements. Founding agency pricing locks you in at 50% off — for life.</div>
       <div class="cta-actions">
         <button class="btn-primary" onclick="openModal()" style="cursor:pointer;border:none;font-family:var(--fm);">REQUEST DEMO →</button>
