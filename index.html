@@ -136,9 +136,11 @@ section{
 
 /* ── HERO ────────────────────────────────────────────────── */
 .hero{
-  min-height:100vh;
+  height:100vh;
   position:relative;
-  padding:120px 80px 80px;
+  display:flex;
+  flex-direction:column;
+  padding:0 80px;
   background-image:
     radial-gradient(ellipse 80% 70% at 100% 40%,rgba(0,229,122,0.06) 0%,transparent 65%),
     radial-gradient(ellipse 40% 40% at 0% 100%,rgba(0,229,122,0.03) 0%,transparent 60%);
@@ -148,8 +150,11 @@ section{
   display:grid;
   grid-template-columns:1fr 420px;
   gap:60px;
-  align-items:start;
+  align-items:center;
   width:100%;
+  margin-top:auto;
+  margin-bottom:auto;
+  padding-top:56px;
 }
 
 .hero::after{
