@@ -137,27 +137,19 @@ section{
 /* ── HERO ────────────────────────────────────────────────── */
 .hero{
   min-height:100vh;
-  min-height:100dvh;
   position:relative;
-  padding:0 80px;
+  padding:120px 80px 80px;
   background-image:
     radial-gradient(ellipse 80% 70% at 100% 40%,rgba(0,229,122,0.06) 0%,transparent 65%),
     radial-gradient(ellipse 40% 40% at 0% 100%,rgba(0,229,122,0.03) 0%,transparent 60%);
   overflow:hidden;
-  display:grid;
-  grid-template-rows:1fr auto;
-  align-items:center;
 }
 .hero-columns{
   display:grid;
   grid-template-columns:1fr 420px;
   gap:60px;
-  align-items:center;
+  align-items:start;
   width:100%;
-  padding-top:56px;
-  padding-bottom:20px;
-  align-self:end;
-  margin-bottom:5vh;
 }
 
 .hero::after{
